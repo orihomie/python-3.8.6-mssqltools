@@ -1,2 +1,2 @@
 # python-3.8.6-mssqltools
-Python 3.8.6 along with mssqltools preinstalled
+Python 3.8.6 along with mssqltools preinstalled to speed up builds

@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - "*"
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+#         if: startsWith(github.ref, 'refs/tags')
+        uses: actions/checkout@v1
+
+      - name: Docker build and push
+        if: startsWith(github.ref, 'refs/tags')
+        uses: docker/build-push-action@v1
+        with:
+#           registry: hub.docker.com
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: 0p3xh7/chromonode
+          tag_with_ref: true
+          tags: latest
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}
